@@ -8,7 +8,7 @@
 Summary:	Good GStreamer Streaming-media framework plugins
 Name:		gstreamer010-plugins-good
 Version:	0.10.31
-Release:	4
+Release:	5
 License:	LGPL
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-good/%{gstname}-%{version}.tar.xz
@@ -18,8 +18,8 @@ URL:		http://gstreamer.freedesktop.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	glib-devel
-BuildRequires:	gstreamer-devel >= %{gst_req_ver}
-BuildRequires:	gstreamer-plugins-base-devel >= %{gstpb_req_ver}
+BuildRequires:	gstreamer010-devel >= %{gst_req_ver}
+BuildRequires:	gstreamer010-plugins-base-devel >= %{gstpb_req_ver}
 BuildRequires:	gtk-doc
 BuildRequires:	gtk+-devel
 BuildRequires:	libtool
@@ -102,6 +102,7 @@ gstreamer-plugins-good API documentation.
 	--disable-aalib				\
 	--disable-esd				\
 	--disable-examples			\
+	--disable-gst_v4l2 			\
 	--disable-libcaca			\
 	--disable-oss				\
 	--disable-oss4				\
@@ -186,7 +187,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstspeex.so
 %attr(755,root,root) %{gstlibdir}/libgsttaglib.so
 %attr(755,root,root) %{gstlibdir}/libgstudp.so
-%attr(755,root,root) %{gstlibdir}/libgstvideo4linux2.so
 %attr(755,root,root) %{gstlibdir}/libgstvideobox.so
 %attr(755,root,root) %{gstlibdir}/libgstvideocrop.so
 %attr(755,root,root) %{gstlibdir}/libgstvideofilter.so
