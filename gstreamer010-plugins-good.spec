@@ -8,7 +8,7 @@
 Summary:	Good GStreamer Streaming-media framework plugins
 Name:		gstreamer010-plugins-good
 Version:	0.10.31
-Release:	5
+Release:	6
 License:	LGPL
 Group:		Libraries
 Source0:	http://gstreamer.freedesktop.org/src/gst-plugins-good/%{gstname}-%{version}.tar.xz
@@ -26,7 +26,6 @@ BuildRequires:	libtool
 BuildRequires:	orc-devel >= 0.4.5
 BuildRequires:	pkg-config
 #
-BuildRequires:	GConf-devel
 BuildRequires:	cairo-devel
 BuildRequires:	dbus-devel
 BuildRequires:	flac-devel
@@ -44,6 +43,7 @@ BuildRequires:	pulseaudio-devel
 BuildRequires:	rpm-gstreamerprov
 BuildRequires:	speex-devel
 BuildRequires:	taglib-devel
+BuildRequires:	wavpack-devel
 BuildRequires:	xorg-libX11-devel
 BuildRequires:	xorg-libXdamage-devel
 BuildRequires:	xorg-libXext-devel
@@ -53,6 +53,7 @@ Requires:	gstreamer010 >= %{gst_req_ver}
 Requires:	gstreamer010-plugins-base >= %{gstpb_req_ver}
 Provides:	gstreamer-plugins-good = %{version}-%{release}
 Obsoletes:	gstreamer-plugins-good < %{version}-%{release}
+Obsoletes:	gstreamer010-plugins-good-gconf
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		gstdatadir 	%{_datadir}/gstreamer-%{gst_major_ver}
@@ -65,15 +66,6 @@ anything from real-time sound processing to playing videos, and just
 about anything else media-related. Its plugin-based architecture means
 that new data types or processing capabilities can be added simply by
 installing new plugins.
-
-%package gconf
-Summary:	GConf plugin
-Group:		Documentation
-Requires:	%{name} = %{version}-%{release}
-Requires(post,preun):	GConf
-
-%description gconf
-GConf support for %{name}.
 
 %package apidocs
 Summary:	gstreamer-plugins-good API documentation
@@ -125,12 +117,6 @@ rm -f $RPM_BUILD_ROOT%{gstlibdir}/*.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-%post gconf
-%gconf_schema_install gstreamer-0.10.schemas
-
-%preun gconf
-%gconf_schema_uninstall gstreamer-0.10.schemas
 
 %%files -f %{gstname}-%{gst_major_ver}.lang
 %defattr(644,root,root,755)
@@ -192,15 +178,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{gstlibdir}/libgstvideofilter.so
 %attr(755,root,root) %{gstlibdir}/libgstvideomixer.so
 %attr(755,root,root) %{gstlibdir}/libgstwavenc.so
+%attr(755,root,root) %{gstlibdir}/libgstwavpack.so
 %attr(755,root,root) %{gstlibdir}/libgstwavparse.so
 %attr(755,root,root) %{gstlibdir}/libgstximagesrc.so
 %attr(755,root,root) %{gstlibdir}/libgsty4menc.so
 %{gstdatadir}/presets/*.prs
-
-%files gconf
-%defattr(644,root,root,755)
-%attr(755,root,root) %{gstlibdir}/libgstgconfelements.so
-%{_sysconfdir}/gconf/schemas/gstreamer-0.10.schemas
 
 %if 0
 %files apidocs
